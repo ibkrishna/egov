@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eGov Foundation</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts: DM Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --egov-blue: #1a73e8;
+      --egov-dark-blue: #003366;
+      --egov-cyan: #00bcd4;
+      --egov-teal: #0097a7;
+      --egov-text: #1a1a2e;
+      --egov-muted: #5f6368;
+      --egov-light: #f8f9fa;
+      --egov-border: #e8eaed;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      color: var(--egov-text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: #fff;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+      padding: 0 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--egov-blue) !important;
+      letter-spacing: -0.5px;
+      padding: 14px 0;
+    }
+    .navbar-brand span { color: #f97316; }
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #444 !important;
+      padding: 24px 14px !important;
+      transition: color .2s;
+    }
+    .nav-link:hover { color: var(--egov-blue) !important; }
+    .navbar-toggler { border: none; }
+    .navbar-toggler:focus { box-shadow: none; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #e8f4fd 0%, #f0f7ff 40%, #e3f2fd 100%);
+      min-height: 520px;
+      padding: 80px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #00bcd420 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #fff3e0;
+      color: #f97316;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+    .hero h1 strong {
+      font-weight: 800;
+      color: #1a1a2e;
+      display: block;
+    }
+    .hero p {
+      color: var(--egov-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+    .btn-primary-custom {
+      background: var(--egov-blue);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: background .2s, transform .2s;
+    }
+    .btn-primary-custom:hover {
+      background: #1557b0;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-outline-custom {
+      background: transparent;
+      color: var(--egov-blue);
+      border: 2px solid var(--egov-blue);
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: inline-block;
+      margin-left: 12px;
+      transition: all .2s;
+    }
+    .btn-outline-custom:hover {
+      background: var(--egov-blue);
+      color: #fff;
+    }
+    .hero-img {
+      width: 100%;
+      max-width: 520px;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.12);
+      transition: transform .4s;
+    }
+    .hero-img:hover { transform: translateY(-6px); }
+
+    /* ── STATS BANNER ── */
+    .stats-banner {
+      background: #1a2a4a;
+      color: #fff;
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .stats-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://placehold.co/1400x400/1a2a4a/2a3a5a?text=') center/cover;
+      opacity: 0.3;
+    }
+    .stats-banner .container { position: relative; }
+    .stat-number {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,.7);
+      margin-top: 6px;
+    }
+    .stat-divider {
+      width: 1px;
+      background: rgba(255,255,255,.2);
+      height: 60px;
+      margin: auto;
+    }
+
+    /* ── BOLD APPROACHES ── */
+    .section-bold {
+      padding: 80px 0;
+      background: #fff;
+    }
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--egov-muted);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+    .section-title span { color: var(--egov-blue); }
+
+    /* Category pills */
+    .cat-pill {
+      display: block;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #444;
+      background: transparent;
+      border: none;
+      text-align: left;
+      width: 100%;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .cat-pill.active, .cat-pill:hover {
+      background: var(--egov-blue);
+      color: #fff;
+    }
+    .cat-pill i { margin-right: 8px; }
+
+    /* Stat cards */
+    .bold-card {
+      border-radius: 16px;
+      padding: 32px;
+      color: #fff;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s;
+    }
+    .bold-card:hover { transform: translateY(-4px); }
+    .bold-card-blue { background: linear-gradient(135deg, #1565c0, #1a73e8); }
+    .bold-card-cyan { background: linear-gradient(135deg, #00838f, #00bcd4); }
+    .bold-card-number {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .bold-card-text { font-size: 0.85rem; opacity: .85; line-height: 1.5; margin-top: 8px; }
+    .bold-card img { width: 100%; border-radius: 8px; margin-top: 16px; opacity: .9; }
+
+    /* ── SUSTAINING CHANGE ── */
+    .section-sustain {
+      padding: 80px 0;
+      background: var(--egov-light);
+    }
+    .sustain-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.06);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .sustain-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.12);
+    }
+    .sustain-card img { width: 100%; height: 180px; object-fit: cover; }
+    .sustain-card-body { padding: 20px; }
+    .sustain-card-body h6 { font-weight: 700; font-size: 0.9rem; margin-bottom: 6px; }
+    .sustain-card-body p { font-size: 0.8rem; color: var(--egov-muted); margin: 0; }
+    .play-btn {
+      width: 36px; height: 36px;
+      background: var(--egov-blue);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 0.8rem;
+      margin-top: 12px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .play-btn:hover { background: #1557b0; }
+
+    /* ── DIGIT SECTION ── */
+    .section-digit {
+      background: linear-gradient(135deg, #003366 0%, #1a2a4a 100%);
+      padding: 80px 0;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .section-digit::before {
+      content: '';
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #00bcd430 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .digit-logo {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .digit-logo span { color: #00bcd4; }
+    .digit-tag {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+    .section-digit h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+    .section-digit p { color: rgba(255,255,255,.75); font-size: 0.9rem; line-height: 1.7; }
+    .btn-digit {
+      background: #00bcd4;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 28px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 24px;
+      display: inline-block;
+      text-decoration: none;
+      transition: background .2s, transform .2s;
+    }
+    .btn-digit:hover { background: #00838f; color: #fff; transform: translateY(-2px); }
+    .digit-person-img {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 12px;
+    }
+
+    /* ── LATEST SECTION ── */
+    .section-latest {
+      padding: 80px 0;
+      background: #fff;
+    }
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+    .filter-tab {
+      padding: 7px 18px;
+      border-radius: 20px;
+      border: 1.5px solid var(--egov-border);
+      background: transparent;
+      color: #444;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+      font-family: "DM Sans", sans-serif;
+    }
+    .filter-tab.active, .filter-tab:hover {
+      background: var(--egov-blue);
+      border-color: var(--egov-blue);
+      color: #fff;
+    }
+    .article-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--egov-border);
+      background: #fff;
+      transition: transform .3s, box-shadow .3s;
+      height: 100%;
+    }
+    .article-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.1);
+    }
+    .article-card img { width: 100%; height: 180px; object-fit: cover; }
+    .article-card-body { padding: 20px; }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--egov-muted);
+      margin-bottom: 10px;
+    }
+    .article-tag {
+      background: #e8f4fd;
+      color: var(--egov-blue);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .article-card-body h6 { font-weight: 700; font-size: 0.9rem; line-height: 1.4; margin-bottom: 8px; }
+    .article-card-body p { font-size: 0.8rem; color: var(--egov-muted); margin: 0; }
+    .btn-see-all {
+      background: transparent;
+      border: 2px solid var(--egov-blue);
+      color: var(--egov-blue);
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all .2s;
+      font-family: "DM Sans", sans-serif;
+    }
+    .btn-see-all:hover { background: var(--egov-blue); color: #fff; }
+
+    /* ── SUPPORTERS ── */
+    .section-supporters {
+      padding: 60px 0;
+      background: var(--egov-light);
+    }
+    .supporter-logo {
+      height: 40px;
+      object-fit: contain;
+      filter: grayscale(1);
+      opacity: .6;
+      transition: all .3s;
+    }
+    .supporter-logo:hover { filter: grayscale(0); opacity: 1; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--egov-border);
+      padding: 50px 0 24px;
+    }
+    .footer-brand {
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--egov-blue);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .footer-brand span { color: #f97316; }
+    .footer-desc { font-size: 0.82rem; color: var(--egov-muted); line-height: 1.6; max-width: 220px; }
+    .footer-heading { font-weight: 700; font-size: 0.85rem; margin-bottom: 16px; color: #1a1a2e; }
+    .footer-link {
+      display: block;
+      font-size: 0.82rem;
+      color: var(--egov-muted);
+      text-decoration: none;
+      margin-bottom: 9px;
+      transition: color .2s;
+    }
+    .footer-link:hover { color: var(--egov-blue); }
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--egov-border);
+      color: var(--egov-muted);
+      font-size: 0.9rem;
+      margin-right: 8px;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .footer-social a:hover { border-color: var(--egov-blue); color: var(--egov-blue); }
+    .footer-subscribe input {
+      border: 1.5px solid var(--egov-border);
+      border-radius: 6px 0 0 6px;
+      padding: 9px 14px;
+      font-size: 0.82rem;
+      outline: none;
+      font-family: "DM Sans", sans-serif;
+    }
+    .footer-subscribe button {
+      background: var(--egov-blue);
+      color: #fff;
+      border: none;
+      border-radius: 0 6px 6px 0;
+      padding: 9px 16px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .footer-subscribe button:hover { background: #1557b0; }
+    .footer-bottom {
+      border-top: 1px solid var(--egov-border);
+      padding-top: 20px;
+      margin-top: 32px;
+      font-size: 0.78rem;
+      color: var(--egov-muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .6s ease forwards; }
+    .delay-1 { animation-delay: .1s; opacity: 0; }
+    .delay-2 { animation-delay: .2s; opacity: 0; }
+    .delay-3 { animation-delay: .3s; opacity: 0; }
+    .delay-4 { animation-delay: .4s; opacity: 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { padding: 50px 0 40px; text-align: center; }
+      .hero p { margin: 0 auto 24px; }
+      .hero-img { margin-top: 32px; max-width: 100%; }
+      .stat-divider { display: none; }
+      .bold-card { margin-bottom: 16px; }
+      .digit-person-img { margin-top: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="#">e<span>GOV</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Areas of work</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Products &amp; Solutions</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Our Platform</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Ecosystem</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Resources</a></li>
+        <li class="nav-item ms-2">
+          <a href="#" class="btn-primary-custom" style="padding:9px 20px;font-size:.85rem;">Contact us</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <div class="hero-badge fade-up">20 Years of Impact</div>
+        <h1 class="fade-up delay-1">
+          20 years of digital transformation in public service delivery
+          <strong>It's possible.</strong>
+        </h1>
+        <p class="fade-up delay-2">
+          Catalysts, ecosystem enablers, mission-driven. At eGov, we're driven by the power of open digital infrastructure and ecosystems to enable governments deliver accessible, inclusive and transparent services to every citizen.
+        </p>
+        <div class="fade-up delay-3">
+          <a href="#" class="btn-primary-custom">Our Approach</a>
+          <a href="#" class="btn-outline-custom">Our Impact</a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center fade-up delay-4">
+        <img src="https://placehold.co/540x380/d0e8f8/1a73e8?text=Public+Service+Delivery" alt="Public service" class="hero-img" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="stats-banner">
+  <div class="container">
+    <div class="row text-center g-4 align-items-center">
+      <div class="col-12 mb-2">
+        <div class="stat-number">1,000,000,100+</div>
+        <div class="stat-label">Citizens making public services through eGov's Digital Public Goods (DPG)</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-number" style="font-size:2.2rem;">1.1 Billion+</div>
+        <div class="stat-label">Public services delivered</div>
+      </div>
+      <div class="col-md-1 d-none d-md-flex justify-content-center">
+        <div class="stat-divider"></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-number" style="font-size:2.2rem;">50+</div>
+        <div class="stat-label">Partners — from technology companies, governments and NGOs</div>
+      </div>
+      <div class="col-md-1 d-none d-md-flex justify-content-center">
+        <div class="stat-divider"></div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div style="font-size:.85rem;color:rgba(255,255,255,.7);line-height:1.6;">
+          Together building sustainable change through open digital infrastructure and ecosystems
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-bold">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <!-- Left: categories -->
+      <div class="col-lg-4">
+        <div class="section-label">Focus Areas</div>
+        <h2 class="section-title">Big problems need<br><span>bold approaches</span></h2>
+        <p class="text-muted mb-4" style="font-size:.9rem;line-height:1.7;">
+          We tackle systemic challenges in public service delivery across health, finance, governance and sanitation.
+        </p>
+        <div class="d-flex flex-column gap-1">
+          <button class="cat-pill active"><i class="bi bi-heart-pulse"></i> Public Health</button>
+          <button class="cat-pill"><i class="bi bi-bank"></i> Public Finance</button>
+          <button class="cat-pill"><i class="bi bi-building"></i> Local Governance</button>
+          <button class="cat-pill"><i class="bi bi-droplet"></i> Water &amp; Sanitations</button>
+        </div>
+      </div>
+      <!-- Right: stat cards -->
+      <div class="col-lg-8">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="bold-card bold-card-blue">
+              <div class="bold-card-number">210+</div>
+              <div class="bold-card-text">Unique modules and services on the platform</div>
+              <img src="https://placehold.co/300x160/1565c0/fff?text=Health+Platform" alt="Health" />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="bold-card bold-card-cyan">
+              <div class="bold-card-number">2 Bn</div>
+              <div class="bold-card-text">Citizen services delivered through our platform</div>
+              <img src="https://placehold.co/300x160/00838f/fff?text=Citizens+Served" alt="Citizens" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-sustain">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="text-muted" style="font-size:.9rem;">20 years of reimagining for citizens and</p>
+      <h2 class="section-title">sustaining <span>change</span></h2>
+      <p class="text-muted mx-auto" style="max-width:640px;font-size:.9rem;line-height:1.7;">
+        Technology is powerful, but so are the people at the places where it comes to enhancing the quality of life for every citizen. To have sustainable impact at scale, the collective energy of local networks to solve local problems needs to be tapped. With our partners &amp; networks living this collective energy to life, the ecosystem outputs at eGov, and our aim to build and amplify their efforts. For 20 years, we've been turning small steps into lasting, meaningful change so that no citizen is left behind.
+      </p>
+    </div>
+    <div class="row g-3 justify-content-center">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="sustain-card">
+          <img src="https://placehold.co/300x180/c8e6c9/388e3c?text=Story+1" alt="Story 1" />
+          <div class="sustain-card-body">
+            <h6>State-led Urban Digital Transformation</h6>
+            <p>How platforms scale governance across 1.4B citizens</p>
+            <div class="play-btn"><i class="bi bi-play-fill"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="sustain-card">
+          <img src="https://placehold.co/300x180/bbdefb/1565c0?text=Story+2" alt="Story 2" />
+          <div class="sustain-card-body">
+            <h6>Building Community Health Systems</h6>
+            <p>Rural health delivery powered by open source tools</p>
+            <div class="play-btn"><i class="bi bi-play-fill"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="#" class="btn-outline-custom">About Us</a>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-digit">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <div class="digit-logo">⚙ DIGIT</div>
+        <div class="digit-tag">by eGov Foundation</div>
+        <p style="font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:16px;">Our open source</p>
+        <h2>technology-for-good<br>platform</h2>
+        <p>
+          DIGIT is the Digital Infrastructure for Governance, Impact &amp; Transformation. An open source platform built for governments, built for scale, with the tools and building blocks that can be used as-is for solutions or reimagined for use.
+        </p>
+        <a href="#" class="btn-digit">Explore the platform</a>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="https://placehold.co/420x480/1a3a6a/00bcd4?text=DIGIT+Platform" alt="DIGIT platform" class="digit-person-img" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-latest">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+      <h2 class="section-title mb-0">Latest at <span>eGov</span></h2>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active">What's New</button>
+      <button class="filter-tab">Articles</button>
+      <button class="filter-tab">Whitepapers</button>
+      <button class="filter-tab">Case Studies</button>
+      <button class="filter-tab">Strategy Papers</button>
+      <button class="filter-tab">News &amp; Media</button>
+      <button class="filter-tab">Videos</button>
+      <button class="filter-tab">Newsletter</button>
+    </div>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-4">
+        <div class="article-card">
+          <img src="https://placehold.co/400x200/e3f2fd/1565c0?text=Urban+Transformation" alt="Article 1" />
+          <div class="article-card-body">
+            <div class="article-meta">
+              <span class="article-tag">Case Study</span>
+              <span>• Jan 15, 2025</span>
+            </div>
+            <h6>State-led Urban Digital Transformation</h6>
+            <p>How digital platforms are reshaping urban governance across India's cities.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="article-card">
+          <img src="https://placehold.co/400x200/e8f5e9/388e3c?text=DOT+Newsletter" alt="Article 2" />
+          <div class="article-card-body">
+            <div class="article-meta">
+              <span class="article-tag">Newsletter</span>
+              <span>• Jan 01, 2025</span>
+            </div>
+            <h6>DOT — A DIGIT Quarterly Newsletter</h6>
+            <p>Receive latest updates of our monthly newsletter DOT — in your inbox.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <div class="article-card">
+          <img src="https://placehold.co/400x200/fff3e0/f57c00?text=DOT+2025" alt="Article 3" />
+          <div class="article-card-body">
+            <div class="article-meta">
+              <span class="article-tag">News</span>
+              <span>• Dec 31, 2024</span>
+            </div>
+            <h6>DOT 2025: Top Stories of Partnerships &amp; Impact</h6>
+            <p>A year in review — celebrating 20 years of digital public infrastructure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <button class="btn-see-all">See All</button>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-supporters">
+  <div class="container">
+    <h5 class="text-center mb-5" style="font-weight:700;color:#1a1a2e;">Our Supporters</h5>
+    <div class="row align-items-center justify-content-center g-4 text-center">
+      <div class="col-6 col-md-2">
+        <img src="https://placehold.co/120x40/f0f0f0/888?text=Co+Impact" alt="Co Impact" class="supporter-logo" />
+      </div>
+      <div class="col-6 col-md-2">
+        <img src="https://placehold.co/120x40/f0f0f0/888?text=Omidyar" alt="Omidyar" class="supporter-logo" />
+      </div>
+      <div class="col-6 col-md-2">
+        <img src="https://placehold.co/120x40/f0f0f0/888?text=Tata+Trusts" alt="Tata Trusts" class="supporter-logo" />
+      </div>
+      <div class="col-6 col-md-2">
+        <img src="https://placehold.co/120x40/f0f0f0/888?text=Bill+Gates" alt="Gates Foundation" class="supporter-logo" />
+      </div>
+      <div class="col-6 col-md-2">
+        <img src="https://placehold.co/120x40/f0f0f0/888?text=Nilekani" alt="Nilekani" class="supporter-logo" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <!-- Brand -->
+      <div class="col-lg-3 col-md-6">
+        <div class="footer-brand">e<span>GOV</span></div>
+        <p class="footer-desc">Catalysing digital transformation to build transparent services locally.</p>
+        <div class="footer-social mt-3">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <!-- Links -->
+      <div class="col-lg-2 col-md-6 col-6">
+        <div class="footer-heading">Useful Links</div>
+        <a href="#" class="footer-link">Home</a>
+        <a href="#" class="footer-link">Our Impact</a>
+        <a href="#" class="footer-link">Products</a>
+        <a href="#" class="footer-link">Contact us</a>
+        <a href="#" class="footer-link">DIGIT Sandbox</a>
+      </div>
+      <!-- Subscribe -->
+      <div class="col-lg-4 col-md-6 offset-lg-3">
+        <div class="footer-heading">Subscribe Now</div>
+        <p class="footer-desc mb-3">Receive latest updates of our monthly newsletter DOT — in your inbox.</p>
+        <div class="footer-subscribe d-flex">
+          <input type="email" placeholder="Your email address" />
+          <button><i class="bi bi-send"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <span>©2024, eGov. All Rights Reserved.</span>
+      <div class="d-flex gap-3">
+        <a href="#" class="footer-link" style="margin:0;">Privacy Policy</a>
+        <a href="#" class="footer-link" style="margin:0;">Terms and Conditions</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Filter tab toggle
+  document.querySelectorAll('.filter-tab').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Category pill toggle
+  document.querySelectorAll('.cat-pill').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
